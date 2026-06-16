@@ -1,23 +1,37 @@
 import pyray as RL
 
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 450
-TITLE = "Drone Fighter"
+class DroneFighter:
+    SCREEN_WIDTH = 800
+    SCREEN_HEIGHT = 450
+    TITLE = "Drone Fighter"
 
-def main():
-    RL.init_window(SCREEN_WIDTH, SCREEN_HEIGHT, TITLE)
-    RL.set_target_fps(60)
+    def __init__(self):
+        # Initialize Raylib window
+        RL.init_window(self.SCREEN_WIDTH, self.SCREEN_HEIGHT, self.TITLE)
+        RL.set_target_fps(60)
 
-    while not RL.window_should_close():
+    def update(self):
+        # Updates game state
+        pass
+
+    def draw(self):
+        # Draw game
         RL.begin_drawing()
-
         RL.clear_background(RL.BLACK)
-        RL.draw_text(TITLE, 280, 200, 40, RL.BLUE)
-
+        RL.draw_text(self.TITLE, 280, 200, 40, RL.BLUE)
         RL.end_drawing()
 
-    RL.close_window()
+    def exit_game(self):
+        # Cleans up and exits game
+        RL.close_window()
+
+    def run(self):
+        # Start game
+        while not RL.window_should_close():
+            self.update()
+            self.draw()
+        self.exit_game()
 
 
-# Start window
-main()
+game = DroneFighter()
+game.run()
