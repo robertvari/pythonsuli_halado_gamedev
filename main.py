@@ -15,18 +15,35 @@ class DroneFighter:
         RL.set_target_fps(60)
 
         self.resources = ResourceManager()
+        self.state = "gameover"
     
     # update
     def update(self):
-        pass
+        if self.state == "startmenu":
+            pass
+        elif self.state == "playing":
+            pass
+        elif self.state == "paused":
+            pass
+        elif self.state == "gameover":
+            pass
+
 
     # draw
     def draw(self):
         RL.begin_drawing()
-
         RL.clear_background(RL.BLACK)
         RL.draw_texture(self.resources.get_texture("Starfield"), -50, -50, RL.WHITE)
-        RL.draw_text(self.TITLE, 500, 350, 40, RL.WHITE)
+
+        if self.state == "startmenu":
+            RL.draw_text(self.TITLE, 500, 350, 40, RL.WHITE)
+        elif self.state == "playing":
+            RL.draw_text("Playing", 500, 350, 40, RL.WHITE)
+        elif self.state == "paused":
+            RL.draw_text("Game Paused", 500, 350, 40, RL.YELLOW)
+        elif self.state == "gameover":
+            RL.draw_text("Game Over", 500, 350, 40, RL.RED)
+
         RL.end_drawing()
 
     # exit game
