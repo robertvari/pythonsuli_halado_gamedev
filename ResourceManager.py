@@ -1,24 +1,27 @@
-import os
 import pyray as RL
+import os
 
 class ResourceManager:
-    RESOURCES_DIR = os.path.join(os.path.dirname(__file__), "resources")
+    RESOURCE_DIR = os.path.join(os.path.dirname(__file__), "resources")
     TEXTURE_EXTENSIONS = {".png"}
 
     def __init__(self):
+        # type annotation
         self._textures: dict[str, RL.Texture2D] = {}
-        self._load_textures()
+        self._load_texture()
 
-    def _load_textures(self):
-        for filename in os.listdir(self.RESOURCES_DIR):
+    # private/protected methods
+    def _load_texture(self):
+        for filename in os.listdir(self.RESOURCE_DIR):
             name, ext = os.path.splitext(filename)
             if ext.lower() in self.TEXTURE_EXTENSIONS:
-                path = os.path.join(self.RESOURCES_DIR, filename)
+                path = os.path.join(self.RESOURCE_DIR, filename)
                 self._textures[name] = RL.load_texture(path)
-
-    def get_texture(self, name: str) -> RL.Texture2D:
+    
+    # Public methods
+    def get_texture(self, name: str):
         if name not in self._textures:
-            raise KeyError(f"Texture '{name}' not found. Available: {list(self._textures)}")
+            raise KeyError(f"Texture {name} not found")
         return self._textures[name]
 
     def unload(self):
