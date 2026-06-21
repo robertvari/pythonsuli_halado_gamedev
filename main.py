@@ -1,5 +1,6 @@
 import pyray as RL
 from ResourceManager import ResourceManager
+from Player import Player
 
 
 class DroneFighter:
@@ -15,14 +16,15 @@ class DroneFighter:
         RL.set_target_fps(60)
 
         self.resources = ResourceManager()
-        self.state = "startmenu"
+        self.player = Player(self.resources)
+        self.state = "playing"
     
     # update
     def update(self):
         if self.state == "startmenu":
             pass
         elif self.state == "playing":
-            pass
+            self.player.update()
         elif self.state == "paused":
             pass
         elif self.state == "gameover":
@@ -38,7 +40,7 @@ class DroneFighter:
         if self.state == "startmenu":
             RL.draw_text(self.TITLE, 500, 350, 40, RL.WHITE)
         elif self.state == "playing":
-            RL.draw_text("Playing", 500, 350, 40, RL.WHITE)
+            self.player.draw()
         elif self.state == "paused":
             RL.draw_text("Game Paused", 500, 350, 40, RL.YELLOW)
         elif self.state == "gameover":
