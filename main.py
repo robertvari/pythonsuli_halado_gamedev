@@ -15,7 +15,7 @@ class DroneFighter:
         RL.set_target_fps(60)
 
         self.resources = ResourceManager()
-        self.state = "gameover"
+        self.state = "startmenu"
     
     # update
     def update(self):
