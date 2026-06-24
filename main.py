@@ -2,7 +2,6 @@ import pyray as RL
 from ResourceManager import ResourceManager
 from Player import Player
 
-
 class DroneFighter:
     SCREEN_WIDTH = 1280
     SCREEN_HEIGHT = 720
