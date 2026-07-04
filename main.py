@@ -1,6 +1,14 @@
+from enum import Enum, auto
+
 import pyray as RL
 from ResourceManager import ResourceManager
 from Player import Player
+
+class GameState(Enum):
+    START_MENU = auto()
+    PLAYING = auto()
+    PAUSED = auto()
+    GAME_OVER = auto()
 
 class DroneFighter:
     SCREEN_WIDTH = 1280
@@ -16,17 +24,17 @@ class DroneFighter:
 
         self.resources = ResourceManager()
         self.player = Player(self.resources)
-        self.state = "playing"
-    
+        self.state = GameState.PLAYING
+
     # update
     def update(self):
-        if self.state == "startmenu":
+        if self.state == GameState.START_MENU:
             pass
-        elif self.state == "playing":
+        elif self.state == GameState.PLAYING:
             self.player.update()
-        elif self.state == "paused":
+        elif self.state == GameState.PAUSED:
             pass
-        elif self.state == "gameover":
+        elif self.state == GameState.GAME_OVER:
             pass
 
 
@@ -36,13 +44,13 @@ class DroneFighter:
         RL.clear_background(RL.BLACK)
         RL.draw_texture(self.resources.get_texture("Starfield"), -50, -50, RL.WHITE)
 
-        if self.state == "startmenu":
+        if self.state == GameState.START_MENU:
             RL.draw_text(self.TITLE, 500, 350, 40, RL.WHITE)
-        elif self.state == "playing":
+        elif self.state == GameState.PLAYING:
             self.player.draw()
-        elif self.state == "paused":
+        elif self.state == GameState.PAUSED:
             RL.draw_text("Game Paused", 500, 350, 40, RL.YELLOW)
-        elif self.state == "gameover":
+        elif self.state == GameState.GAME_OVER:
             RL.draw_text("Game Over", 500, 350, 40, RL.RED)
 
         RL.end_drawing()
