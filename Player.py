@@ -1,7 +1,8 @@
 import pyray as RL
+from DF_Base import GameObject
 from ResourceManager import ResourceManager
 
-class Player:
+class Player(GameObject):
     SPEED = 200
     SCALE = 3
 
