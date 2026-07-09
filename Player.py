@@ -1,4 +1,5 @@
 import pyray as RL
+from DF_Base import GameObject
 from ResourceManager import ResourceManager
 from DF_Base import GameObject
 

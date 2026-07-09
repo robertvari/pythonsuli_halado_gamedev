@@ -1,13 +1,10 @@
 from abc import ABC, abstractmethod
 
 class GameObject(ABC):
-    def __init__(self):
-        pass
-
     @abstractmethod
     def update(self):
-        pass
+        print("GameObject: update")
 
     @abstractmethod
     def draw(self):
-        pass
+        print("GameObject: draw")
