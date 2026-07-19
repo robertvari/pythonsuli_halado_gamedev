@@ -18,16 +18,15 @@ class DroneFighter:
         self.state = "playing"
     
     # update
-    def update(self):
+    def update(self, dt):
         if self.state == "startmenu":
             pass
         elif self.state == "playing":
-            self.player.update()
+            self.player.update(dt)
         elif self.state == "paused":
             pass
         elif self.state == "gameover":
             pass
-
 
     # draw
     def draw(self):
@@ -54,7 +53,8 @@ class DroneFighter:
     # start game
     def run(self):
         while not RL.window_should_close():
-            self.update()
+            dt = RL.get_frame_time()
+            self.update(dt)
             self.draw()
         self.exit_game()
 
