@@ -2,7 +2,7 @@ import pyray as RL
 from DF_Base import Spaceship
 
 class Player(Spaceship):
-    ROTATION = 180
+    ROTATION = -90
 
     def update(self, dt: float):
         # Move spaceship
@@ -19,3 +19,4 @@ class Player(Spaceship):
             dx += 1
 
         self.move(RL.Vector2(dx, dy), dt)
+        self.rotate_to(RL.get_mouse_position())
