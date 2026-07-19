@@ -28,7 +28,6 @@ class DroneFighter:
         elif self.state == "gameover":
             pass
 
-
     # draw
     def draw(self):
         RL.begin_drawing()

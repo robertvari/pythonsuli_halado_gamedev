@@ -4,7 +4,7 @@ from DF_Base import Spaceship
 class Player(Spaceship):
     ROTATION = 180
 
-    def update(self, dt):
+    def update(self, dt: float):
         # Move spaceship
         dx = 0
         dy = 0

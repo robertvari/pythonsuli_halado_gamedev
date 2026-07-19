@@ -4,7 +4,7 @@ from ResourceManager import ResourceManager
 
 class GameObject(ABC):
     @abstractmethod
-    def update(self, dt):
+    def update(self, dt: float):
         print("GameObject: update")
 
     @abstractmethod
@@ -28,7 +28,7 @@ class Spaceship(GameObject):
         self._origin = RL.Vector2(self._size/2, self._size/2)
         self.position =RL.Vector2(RL.get_screen_width()/2, RL.get_screen_height()/2)
         self.velocity = RL.Vector2(0, 0)
-
+    
     def move(self, direction: RL.Vector2, dt: float):
         if direction.x != 0 or direction.y != 0:
             direction = RL.vector2_normalize(direction)
