@@ -1,6 +1,5 @@
 import pyray as RL
 from DF_Base import Spaceship
-from ResourceManager import ResourceManager
 
 class Player(Spaceship):
     ROTATION = 180
