@@ -1,6 +1,6 @@
 import pyray as RL
 from abc import ABC, abstractmethod
-from math import atan2, degrees
+from math import degrees, atan2
 from ResourceManager import ResourceManager
 
 class GameObject(ABC):
@@ -30,11 +30,12 @@ class Spaceship(GameObject):
         self.position =RL.Vector2(RL.get_screen_width()/2, RL.get_screen_height()/2)
         self.velocity = RL.Vector2(0, 0)
         self.rotation = self.ROTATION
-
+    
     def rotate_to(self, target: RL.Vector2):
         direction = RL.vector2_subtract(target, self.position)
         if direction.x == 0 and direction.y == 0:
             return
+        
         self.rotation = degrees(atan2(direction.y, direction.x)) + self.ROTATION
 
     def move(self, direction: RL.Vector2, dt: float):
