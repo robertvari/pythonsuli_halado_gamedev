@@ -22,7 +22,6 @@ class Spaceship(GameObject):
     TEXTURE_NAME = "Ships"
 
     def __init__(self, resource_manager: ResourceManager):
-        print("Spaceship init")
         self._texture = resource_manager.get_texture(self.TEXTURE_NAME)
         self._source_rect = RL.Rectangle(*self.SOURCE_RECT)
         self._size = self._source_rect.width * self.SCALE
