@@ -16,7 +16,7 @@ class Enemy(Spaceship):
 
     @abstractmethod
     def update(self, dt: float):
-        pass
+        self.rotate_to(self._player.position)
 
 class EnemySpawner:
     def __init__(self, resource_manager: ResourceManager, enemy_count: int, player: Player):
@@ -44,4 +44,4 @@ class EnemySpawner:
 
 class Drone(Enemy):
     def update(self, dt: float):
-        self.rotate_to(self._player.position)
+        super().update(dt)
