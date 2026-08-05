@@ -8,6 +8,8 @@ from random import randint
 class Enemy(Spaceship):
     ROTATION = -90
     SOURCE_RECT = (64, 64, 16, 16)
+    SPEED=100
+    FOLLOWDISTANCE_MIN=150
 
     def __init__(self, resource_manager: ResourceManager, spawn_position: RL.Vector2, player: Player):
         super().__init__(resource_manager)
@@ -16,6 +18,12 @@ class Enemy(Spaceship):
 
     @abstractmethod
     def update(self, dt: float):
+        # follow player
+        direction = RL.Vector2()
+        if RL.vector2_length(RL.vector2_subtract(self._player.position, self.position)) > self.FOLLOWDISTANCE_MIN:
+            direction = RL.vector2_subtract(self._player.position, self.position)
+
+        self.move(direction, dt)
         self.rotate_to(self._player.position)
 
 class EnemySpawner:
