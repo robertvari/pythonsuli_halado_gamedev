@@ -15,7 +15,7 @@ class DroneFighter:
 
         self.resources = ResourceManager()
         self.player = Player(self.resources)
-        self.enemy_spawner = EnemySpawner(self.resources)
+        self.enemy_spawner = EnemySpawner(self.resources, 10)
 
         self.state = "playing"
     

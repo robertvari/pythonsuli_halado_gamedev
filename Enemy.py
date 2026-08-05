@@ -1,27 +1,34 @@
+from DF_Base import Spaceship
+from ResourceManager import ResourceManager
 import pyray as RL
 from abc import abstractmethod
-from DF_Base import Spaceship
 from random import randint
 
 class Enemy(Spaceship):
     SOURCE_RECT = (64, 64, 16, 16)
 
-    def __init__(self, resource_manager, spawn_position: RL.Vector2):
+    def __init__(self, resource_manager: ResourceManager, spawn_position: RL.Vector2):
         super().__init__(resource_manager)
         self.position = spawn_position
+
 
     @abstractmethod
     def update(self, dt: float):
         pass
 
 class EnemySpawner:
-    def __init__(self, resource_manager):
+    def __init__(self, resource_manager: ResourceManager, enemy_count: int):
         self.enemies: list[Enemy] = []
 
-        # Spawn some enemy
-        for i in range(4):
+        for i in range(enemy_count):
             self.enemies.append(
-                Drone(resource_manager, RL.Vector2(randint(100, RL.get_screen_width() - 100), randint(100, RL.get_screen_height()-100)))
+                Drone(
+                    resource_manager,
+                    RL.Vector2(
+                        randint(100, RL.get_screen_width()-100),
+                        randint(100, RL.get_screen_height()-100)
+                    )
+                )
             )
 
     def update(self, dt: float):
