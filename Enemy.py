@@ -1,23 +1,36 @@
 from DF_Base import Spaceship
+from Player import Player
 from ResourceManager import ResourceManager
 import pyray as RL
 from abc import abstractmethod
 from random import randint
 
 class Enemy(Spaceship):
+    SPEED = 100
+    FOLLOWDISTANCE_MIN = 200
+    ROTATION = -90
     SOURCE_RECT = (64, 64, 16, 16)
 
-    def __init__(self, resource_manager: ResourceManager, spawn_position: RL.Vector2):
+    def __init__(self, resource_manager: ResourceManager, spawn_position: RL.Vector2, player: Player):
         super().__init__(resource_manager)
         self.position = spawn_position
-
+        self._player = player
 
     @abstractmethod
     def update(self, dt: float):
-        pass
+        # follow player
+        direction = RL.Vector2()
+        if RL.vector2_length(RL.vector2_subtract(self._player.position, self.position)) > self.FOLLOWDISTANCE_MIN:
+            direction = RL.vector2_subtract(self._player.position, self.position)
+
+        self.move(direction, dt)
+
+        # track player
+        self.rotate_to(self._player.position)
+
 
 class EnemySpawner:
-    def __init__(self, resource_manager: ResourceManager, enemy_count: int):
+    def __init__(self, resource_manager: ResourceManager, enemy_count: int, player: Player):
         self.enemies: list[Enemy] = []
 
         for i in range(enemy_count):
@@ -27,7 +40,8 @@ class EnemySpawner:
                     RL.Vector2(
                         randint(100, RL.get_screen_width()-100),
                         randint(100, RL.get_screen_height()-100)
-                    )
+                    ),
+                    player
                 )
             )
 
@@ -41,4 +55,4 @@ class EnemySpawner:
 
 class Drone(Enemy):
     def update(self, dt: float):
-        pass
+        super().update(dt)
