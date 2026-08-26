@@ -2,6 +2,7 @@ import pyray as RL
 from ResourceManager import ResourceManager
 from Player import Player
 from Enemy import EnemySpawner
+from DF_Base import ProjectileManager
 
 class DroneFighter:
     SCREEN_WIDTH = 1280
@@ -14,8 +15,9 @@ class DroneFighter:
         RL.set_target_fps(60)
 
         self.resources = ResourceManager()
-        self.player = Player(self.resources)
-        self.enemy_spawner = EnemySpawner(self.resources, 1, self.player)
+        self.projectile_manager = ProjectileManager(self.resources)
+        self.player = Player(self.resources, self.projectile_manager)
+        self.enemy_spawner = EnemySpawner(self.resources, self.projectile_manager, 1, self.player)
 
         self.state = "playing"
     
@@ -26,6 +28,7 @@ class DroneFighter:
         elif self.state == "playing":
             self.player.update(dt)
             self.enemy_spawner.update(dt)
+            self.projectile_manager.update(dt)
         elif self.state == "paused":
             pass
         elif self.state == "gameover":
@@ -42,6 +45,7 @@ class DroneFighter:
         elif self.state == "playing":
             self.player.draw()
             self.enemy_spawner.draw()
+            self.projectile_manager.draw()
         elif self.state == "paused":
             RL.draw_text("Game Paused", 500, 350, 40, RL.YELLOW)
         elif self.state == "gameover":
