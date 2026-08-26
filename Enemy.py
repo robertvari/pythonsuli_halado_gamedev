@@ -1,4 +1,5 @@
 from DF_Base import Spaceship
+from Player import Player
 from ResourceManager import ResourceManager
 from Player import Player
 import pyray as RL
@@ -6,6 +7,8 @@ from abc import abstractmethod
 from random import randint
 
 class Enemy(Spaceship):
+    SPEED = 100
+    FOLLOWDISTANCE_MIN = 200
     ROTATION = -90
     SOURCE_RECT = (64, 64, 16, 16)
     SPEED=100
@@ -24,7 +27,10 @@ class Enemy(Spaceship):
             direction = RL.vector2_subtract(self._player.position, self.position)
 
         self.move(direction, dt)
+
+        # track player
         self.rotate_to(self._player.position)
+
 
 class EnemySpawner:
     def __init__(self, resource_manager: ResourceManager, enemy_count: int, player: Player):
